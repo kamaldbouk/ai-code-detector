@@ -35,7 +35,6 @@ function App() {
 
   return (
     <div className="app">
-      {/* Background circles */}
       <div className="background-circles">
         {Array.from({ length: 12 }).map((_, i) => (
           <div key={i} className="circle"></div>
@@ -47,7 +46,7 @@ function App() {
       <div className="input-container">
         <input
           type="text"
-          placeholder="Paste your GitHub repo URL..."
+          placeholder="Paste your GitHub URL..."
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           className="input"
@@ -55,7 +54,7 @@ function App() {
         <button onClick={analyze} className="button">Analyze</button>
       </div>
 
-      {loading && <p className="loading">Summoning the AI detection bot...</p>}
+      {loading && <p className="loading">Detecting AI...</p>}
 
       {result && !result.error && !loading && (
         <div className="results">
@@ -67,24 +66,9 @@ function App() {
                 textColor: "#fff",
                 pathColor: getColor(result.repo_score),
                 trailColor: "#222",
+                marginBottom: '20px',
               })}
             />
-          </div>
-
-          <h2>Repo AI Likelihood</h2>
-
-          <div className="files">
-            <h3>File Analysis</h3>
-            <ul>
-              {Object.entries(result.files).map(([file, score]) => (
-                <li key={file} className="file-item">
-                  <span className="file-name">{file}</span>
-                  <span className="file-score" style={{ color: getColor(score) }}>
-                    {score}%
-                  </span>
-                </li>
-              ))}
-            </ul>
           </div>
         </div>
       )}
@@ -93,7 +77,7 @@ function App() {
         <p className="error">{result.error}</p>
       )}
 
-      <footer className="footer">Powered by <span>OpenAI</span></footer>
+      <footer>Powered by <span>OpenAI</span></footer>
     </div>
   );
 }
