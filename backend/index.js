@@ -76,9 +76,9 @@ app.post("/analyze", async (req, res) => {
         if (stat.isDirectory()) {
           await walk(filepath);
         } else {
-          if (/\.(js|ts|py|java|cpp|c)$/.test(file)) {
+          if (/\.(js|ts|py|java|cpp|c|html)$/.test(file)) {
             scannedFiles++;
-            console.log(`🔍 Analyzing file ${scannedFiles}/${MAX_FILES}: ${filepath}`);
+            console.log(`Analyzing file ${scannedFiles}/${MAX_FILES}: ${filepath}`);
 
             const code = fs.readFileSync(filepath, "utf8");
             const score = await detectAIwithOpenAI(code);
@@ -108,5 +108,5 @@ app.post("/analyze", async (req, res) => {
 });
 
 app.listen(8080, () => {
-  console.log("✅ Backend running on http://localhost:8080");
+  console.log("backend running on http://localhost:8080");
 });
