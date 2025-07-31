@@ -13,7 +13,8 @@ function App() {
     setResult(null);
 
     try {
-      const res = await fetch("http://localhost:8080/analyze", {
+      // const res = await fetch("http://localhost:8080/analyze", {
+      const res = await fetch("https://ai-code-detector-z2a6.onrender.com/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url }),
