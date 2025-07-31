@@ -21,7 +21,7 @@ function App() {
       const data = await res.json();
       setResult(data);
     } catch (err) {
-      setResult({ error: "Failed to connect to backend" });
+      setResult({ error: "Failed to analyze (Backend Error)" });
     }
 
     setLoading(false);
@@ -32,7 +32,7 @@ function App() {
     if (score < 75) return "#ffcc00"; 
     return "#ff0066"; 
   };
-
+  
   return (
     <div className="app">
       <div className="background-circles">
