@@ -22,12 +22,8 @@ const MAX_FILES = 5;
 async function detectAIwithOpenAI(code) {
   const snippet = code.length > 1500 ? code.slice(0, 1500) : code;
 
-  const prompt = `
-Is the following code snippet likely AI-generated or human-written? Reply with ONLY "AI" or "Human".
-
-Code:
-${snippet}
-`;
+  const prompt = `Is the following code snippet likely AI-generated or human-written? Reply with ONLY "AI" or "Human".
+  Code: ${snippet}`;
 
   try {
     const response = await openai.chat.completions.create({
@@ -41,8 +37,10 @@ ${snippet}
     });
 
     const answer = response.choices[0].message.content.trim();
-    if (answer.toLowerCase() === "ai") return 100;
-    if (answer.toLowerCase() === "human") return 0;
+    if (answer.toLowerCase() === "ai") 
+      return 100;
+    if (answer.toLowerCase() === "human") 
+      return 0;
     return 50;
   } catch (err) {
     console.error("OpenAI API error:", err.message);
@@ -52,7 +50,8 @@ ${snippet}
 
 app.post("/analyze", async (req, res) => {
   const { url } = req.body;
-  if (!url) return res.status(400).json({ error: "Repository URL required" });
+  if (!url) 
+    return res.status(400).json({ error: "Repository URL required" });
 
   const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "repo-"));
 
@@ -68,7 +67,8 @@ app.post("/analyze", async (req, res) => {
     async function walk(dir) {
       const files = fs.readdirSync(dir);
       for (let file of files) {
-        if (scannedFiles >= MAX_FILES) return;
+        if (scannedFiles >= MAX_FILES) 
+          return;
 
         const filepath = path.join(dir, file);
         const stat = fs.statSync(filepath);
@@ -76,7 +76,7 @@ app.post("/analyze", async (req, res) => {
         if (stat.isDirectory()) {
           await walk(filepath);
         } else {
-          if (/\.(js|ts|py|java|cpp|c|html)$/.test(file)) {
+          if (/\.(js|py|java|c|html)$/.test(file)) {
             scannedFiles++;
             console.log(`Analyzing file ${scannedFiles}/${MAX_FILES}: ${filepath}`);
 
